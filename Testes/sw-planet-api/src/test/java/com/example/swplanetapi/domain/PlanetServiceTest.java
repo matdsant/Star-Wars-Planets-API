@@ -3,8 +3,10 @@ package com.example.swplanetapi.domain;
 import static com.example.swplanetapi.common.PlanetConstants.INVALID_PLANET;
 import static com.example.swplanetapi.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -20,13 +22,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Example;
 
 @ExtendWith(MockitoExtension.class)
-//@SpringBootTest(classes = PlanetService.class)
+// @SpringBootTest(classes = PlanetService.class)
 public class PlanetServiceTest {
-    //@Autowired
+    // @Autowired
     @InjectMocks
     private PlanetService planetService;
 
-    //@MockBean
+    // @MockBean
     @Mock
     private PlanetRepository planetRepository;
 
@@ -45,7 +47,7 @@ public class PlanetServiceTest {
     public void createPlanet_WithInvalidData_ThrowsException() {
         when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
 
-        assertThatThrownBy(()->planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
     }
 
     // Exercise ONE
@@ -54,7 +56,7 @@ public class PlanetServiceTest {
         when(planetRepository.findById(1L)).thenReturn(Optional.of(PLANET));
 
         Optional<Planet> sut = planetService.get(1L);
-        
+
         assertThat(sut).isNotEmpty();
         assertThat(sut.get()).isEqualTo(PLANET);
     }
@@ -74,7 +76,7 @@ public class PlanetServiceTest {
         when(planetRepository.findByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
 
         Optional<Planet> sut = planetService.getByName(PLANET.getName());
-        
+
         assertThat(sut).isNotEmpty();
         assertThat(sut.get()).isEqualTo(PLANET);
     }
@@ -91,27 +93,39 @@ public class PlanetServiceTest {
 
     @Test
     public void listPlanets_ReturnsAllPlanets() {
-    List<Planet> planets = new ArrayList<>() {
-      {
-        add(PLANET);
-      }
-    };
-    Example<Planet> query = QueryBuilder.makeQuery(new Planet(PLANET.getClimate(), PLANET.getTerrain()));
-    when(planetRepository.findAll(query)).thenReturn(planets);
+        List<Planet> planets = new ArrayList<>() {
+            {
+                add(PLANET);
+            }
+        };
+        Example<Planet> query = QueryBuilder.makeQuery(new Planet(PLANET.getClimate(), PLANET.getTerrain()));
+        when(planetRepository.findAll(query)).thenReturn(planets);
 
-    List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
+        List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
 
-    assertThat(sut).isNotEmpty();
-    assertThat(sut).hasSize(1);
-    assertThat(sut.get(0)).isEqualTo(PLANET);
+        assertThat(sut).isNotEmpty();
+        assertThat(sut).hasSize(1);
+        assertThat(sut.get(0)).isEqualTo(PLANET);
     }
 
     @Test
     public void listPlanets_ReturnsNoPlanets() {
-    when(planetRepository.findAll(any())).thenReturn(Collections.emptyList());
+        when(planetRepository.findAll(any())).thenReturn(Collections.emptyList());
 
-    List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
+        List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
 
-    assertThat(sut).isEmpty();
-  }
+        assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void removePlanet_WithExistingId_doesNotThrowAnyException() {
+        assertThatCode(() -> planetService.remove(1L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    public void removePlanet_WithUnexistingId_ThrowsException() {
+        doThrow(new RuntimeException()).when(planetRepository).deleteById(99L);
+
+        assertThatThrownBy(() -> planetService.remove(99L)).isInstanceOf(RuntimeException.class);
+    }
 }
