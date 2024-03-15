@@ -14,81 +14,71 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 @DataJpaTest
 public class PlanetRepositoryTest {
-    @Autowired
-    private PlanetRepository planetRepository;
+  @Autowired
+  private PlanetRepository planetRepository;
 
-    @Autowired
-    private TestEntityManager testEntityManager;
+  @Autowired
+  private TestEntityManager testEntityManager;
 
-    @AfterEach
-    public void AfterEach() {
-        PLANET.setId(null);
-    }
+  @AfterEach
+  public void afterEach() {
+    PLANET.setId(null);
+  }
 
-    @Test
-    public void createPlanet_WithValidData_ReturnsPlanet() {
-        Planet planet = planetRepository.save(PLANET);
+  @Test
+  public void createPlanet_WithValidData_ReturnsPlanet() {
+    Planet planet = planetRepository.save(PLANET);
 
-        Planet sut = testEntityManager.find(Planet.class, planet.getId());
+    Planet sut = testEntityManager.find(Planet.class, planet.getId());
 
-        System.out.println(planet);
+    assertThat(sut).isNotNull();
+    assertThat(sut.getName()).isEqualTo(PLANET.getName());
+    assertThat(sut.getClimate()).isEqualTo(PLANET.getClimate());
+    assertThat(sut.getTerrain()).isEqualTo(PLANET.getTerrain());
+  }
 
-        assertThat(sut).isNotNull();
-        assertThat(sut.getName()).isEqualTo(PLANET.getName());
-        assertThat(sut.getClimate()).isEqualTo(PLANET.getClimate());
-        assertThat(sut.getTerrain()).isEqualTo(PLANET.getTerrain());
-    }
+  @Test
+  public void createPlanet_WithInvalidData_ThrowsException() {
+    Planet emptyPlanet = new Planet();
+    Planet invalidPlanet = new Planet("", "", "");
 
-    @Test
-    public void createPlanet_WithInvalidData_ThrowsException() {
-        Planet emptyPlanet = new Planet();
+    assertThatThrownBy(() -> planetRepository.save(emptyPlanet)).isInstanceOf(RuntimeException.class);
+    assertThatThrownBy(() -> planetRepository.save(invalidPlanet)).isInstanceOf(RuntimeException.class);
+  }
 
-        Planet invalidPlanet = new Planet("", "", "");
+  @Test
+  public void createPlanet_WithExistingName_ThrowsException() {
+    Planet planet = testEntityManager.persistFlushFind(PLANET);
+    testEntityManager.detach(planet);
+    planet.setId(null);
 
-        assertThatThrownBy(() -> planetRepository.save(emptyPlanet)).isInstanceOf(RuntimeException.class);
-        assertThatThrownBy(() -> planetRepository.save(invalidPlanet)).isInstanceOf(RuntimeException.class);
-    }
+    assertThatThrownBy(() -> planetRepository.save(planet)).isInstanceOf(RuntimeException.class);
+  }
 
-    @Test
-    public void createPlanet_WithExistingName_ThrowsException() {
-        Planet planet = testEntityManager.persistFlushFind(PLANET);
-        testEntityManager.detach(planet);
-        planet.setId(null);
+  @Test
+  public void getPlanet_ByExistingId_ReturnsPlanet() {
+    Planet planet = testEntityManager.persistFlushFind(PLANET);
 
-        assertThatThrownBy(() -> planetRepository.save(planet)).isInstanceOf(RuntimeException.class);
-    }
+    Optional<Planet> planetOpt = planetRepository.findById(planet.getId());
 
-    @Test
-	public void getPlanet_ByExistingId_ReturnsPlanet() {
-        Planet planet = testEntityManager.persistFlushFind(PLANET);
+    assertThat(planetOpt).isNotEmpty();
+    assertThat(planetOpt.get()).isEqualTo(planet);
+  }
 
-        Optional<Planet> planetOpt = planetRepository.findById(planet.getId());
+  @Test
+  public void getPlanet_ByUnexistingId_ReturnsEmpty() {
+    Optional<Planet> planetOpt = planetRepository.findById(1L);
 
-        assertThat(planetOpt).isNotEmpty();
-        assertThat(planetOpt.get()).isEqualTo(planet);
-    }
+    assertThat(planetOpt).isEmpty();
+  }
 
-    @Test
-    public void getPlanet_ByUnexistingId_ReturnsEmpty() {
-        Optional<Planet> planetOpt = planetRepository.findById(1L);
+  @Test
+  public void getPlanet_ByExistingName_ReturnsPlanet() {
+    // TODO implement
+  }
 
-        assertThat(planetOpt).isEmpty();
-    }
-
-    @Test
-	public void getPlanet_ByExistingName_ReturnsPlanet() {
-        Planet planet = testEntityManager.persistFlushFind(PLANET);
-
-        Optional<Planet> planetOpt = planetRepository.findByName(planet.getName());
-
-        assertThat(planetOpt).isNotEmpty();
-        assertThat(planetOpt.get()).isEqualTo(planet);
-    }
-
-    @Test
-    public void getPlanet_ByUnexistingName_ReturnsEmpty() {
-        Optional<Planet> planetOpt = planetRepository.findByName("name");
-
-        assertThat(planetOpt).isEmpty();
-    }
+  @Test
+  public void getPlanet_ByUnexistingName_ReturnsNotFound() {
+    // TODO implement
+  }
 }

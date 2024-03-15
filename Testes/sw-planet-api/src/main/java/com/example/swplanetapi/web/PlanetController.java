@@ -2,6 +2,8 @@ package com.example.swplanetapi.web;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.swplanetapi.domain.Planet;
 import com.example.swplanetapi.domain.PlanetService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/planets")
