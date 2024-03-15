@@ -88,4 +88,14 @@ public class PlanetRepositoryTest {
 
     assertThat(planetOpt).isEmpty();
   }
+
+  @Test
+  public void listPlanets_ReturnsFilteredPlanets() {
+    // TODO implement
+  }
+
+  @Test
+  public void listPlanets_ReturnsNoPlanets() {
+    // TODO implement
+  }
 }

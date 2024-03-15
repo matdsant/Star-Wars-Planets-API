@@ -30,9 +30,11 @@ public class PlanetControllerTest {
   @Autowired
   private ObjectMapper objectMapper;
 
+  // MOCK do PlanetService
   @MockBean
   private PlanetService planetService;
 
+  // Teste para verificar a criação de um planeta com dados válidos
   @Test
   public void createPlanet_WithValidData_ReturnsCreated() throws Exception {
     when(planetService.create(PLANET)).thenReturn(PLANET);
@@ -45,6 +47,7 @@ public class PlanetControllerTest {
         .andExpect(jsonPath("$").value(PLANET));
   }
 
+  // Teste para verificar a criação de um planeta com dados inválidos
   @Test
   public void createPlanet_WithInvalidData_ReturnsBadRequest() throws Exception {
     Planet emptyPlanet = new Planet();
@@ -62,6 +65,7 @@ public class PlanetControllerTest {
         .andExpect(status().isUnprocessableEntity());
   }
 
+  // Teste para verificar a criação de um planeta com nome existente
   @Test
   public void createPlanet_WithExistingName_ReturnsConflict() throws Exception {
     when(planetService.create(any())).thenThrow(DataIntegrityViolationException.class);
@@ -73,6 +77,7 @@ public class PlanetControllerTest {
         .andExpect(status().isConflict());
   }
 
+  // Teste para verificar a obtenção de um planeta pelo ID existente
   @Test
   public void getPlanet_ByExistingId_ReturnsPlanet() throws Exception {
     when(planetService.get(1L)).thenReturn(Optional.of(PLANET));
@@ -84,12 +89,14 @@ public class PlanetControllerTest {
         .andExpect(jsonPath("$").value(PLANET));
   }
 
+  // Teste para verificar a obtenção de um planeta pelo ID inexistente
   @Test
   public void getPlanet_ByUnexistingId_ReturnsNotFound() throws Exception {
     mockMvc.perform(get("/planets/1"))
         .andExpect(status().isNotFound());
   }
 
+  // Teste para verificar a obtenção de um planeta pelo nome existente
   @Test
   public void getPlanet_ByExistingName_ReturnsPlanet() throws Exception {
     when(planetService.getByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
@@ -101,9 +108,22 @@ public class PlanetControllerTest {
         .andExpect(jsonPath("$").value(PLANET));
   }
 
+  // Teste para verificar a obtenção de um planeta pelo nome inexistente
   @Test
   public void getPlanet_ByUnexistingName_ReturnsNotFound() throws Exception {
     mockMvc.perform(get("/planets/name/1"))
         .andExpect(status().isNotFound());
+  }
+
+  // Teste para verificar a listagem de planetas com filtro (AINDA NÃO IMPLEMENTADO)
+  @Test
+  public void listPlanets_ReturnsFilteredPlanets() throws Exception {
+    // TODO implement
+  }
+
+  // Teste para verificar a listagem de planetas sem filtro (AINDA NÃO IMPLEMENTADO)
+  @Test
+  public void listPlanets_ReturnsNoPlanets() throws Exception {
+    // TODO implement
   }
 }
