@@ -26,9 +26,11 @@ public class PlanetServiceTest {
   @InjectMocks
   private PlanetService planetService;
 
+  // MOCK do PlanetRepository
   @Mock
   private PlanetRepository planetRepository;
 
+  // Configurando o MOCK para simular o comportamento do método save do PlanetRepository
   @Test
   public void createPlanet_WithValidData_ReturnsPlanet() {
     when(planetRepository.save(PLANET)).thenReturn(PLANET);
@@ -38,6 +40,7 @@ public class PlanetServiceTest {
     assertThat(sut).isEqualTo(PLANET);
   }
 
+  // Configurando o MOCK para simular o comportamento do método save do PlanetRepository
   @Test
   public void createPlanet_WithInvalidData_ThrowsException() {
     when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
@@ -45,6 +48,7 @@ public class PlanetServiceTest {
     assertThatThrownBy(() -> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
   }
 
+  // Configurando o MOCK para simular o comportamento do método findById do PlanetRepository
   @Test
   public void getPlanet_ByExistingId_ReturnsPlanet() {
     when(planetRepository.findById(1L)).thenReturn(Optional.of(PLANET));
@@ -55,6 +59,7 @@ public class PlanetServiceTest {
     assertThat(sut.get()).isEqualTo(PLANET);
   }
 
+  // Configurando o MOCK para simular o comportamento do método findById do PlanetRepository
   @Test
   public void getPlanet_ByUnexistingId_ReturnsEmpty() {
     when(planetRepository.findById(1L)).thenReturn(Optional.empty());
@@ -64,6 +69,7 @@ public class PlanetServiceTest {
     assertThat(sut).isEmpty();
   }
 
+  // Configurando o MOCK para simular o comportamento do método findByName do PlanetRepository
   @Test
   public void getPlanet_ByExistingName_ReturnsPlanet() {
     when(planetRepository.findByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
@@ -74,6 +80,7 @@ public class PlanetServiceTest {
     assertThat(sut.get()).isEqualTo(PLANET);
   }
 
+  // Configurando o MOCK para simular o comportamento do método findByName do PlanetRepository
   @Test
   public void getPlanet_ByUnexistingName_ReturnsEmpty() {
     final String name = "Unexisting name";
@@ -84,6 +91,7 @@ public class PlanetServiceTest {
     assertThat(sut).isEmpty();
   }
 
+  // Configurando o MOCK para simular o comportamento do método findAll do PlanetRepository
   @Test
   public void listPlanets_ReturnsAllPlanets() {
     List<Planet> planets = new ArrayList<>() {
@@ -101,6 +109,7 @@ public class PlanetServiceTest {
     assertThat(sut.get(0)).isEqualTo(PLANET);
   }
 
+  // Configurando o MOCK para simular o comportamento do método findAll do PlanetRepository
   @Test
   public void listPlanets_ReturnsNoPlanets() {
     when(planetRepository.findAll(any())).thenReturn(Collections.emptyList());
@@ -110,11 +119,13 @@ public class PlanetServiceTest {
     assertThat(sut).isEmpty();
   }
 
+  // Configurando o MOCK para simular o comportamento do método deleteById do PlanetRepository
   @Test
   public void removePlanet_WithExistingId_doesNotThrowAnyException() {
     assertThatCode(() -> planetService.remove(1L)).doesNotThrowAnyException();
   }
 
+  // Configurando o MOCK para simular o comportamento do método deleteById do PlanetRepository
   @Test
   public void removePlanet_WithUnexistingId_ThrowsException() {
     doThrow(new RuntimeException()).when(planetRepository).deleteById(99L);
