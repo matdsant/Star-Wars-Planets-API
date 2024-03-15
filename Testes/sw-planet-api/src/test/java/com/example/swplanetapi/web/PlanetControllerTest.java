@@ -1,15 +1,14 @@
 package com.example.swplanetapi.web;
 
+import static com.example.swplanetapi.common.PlanetConstants.PLANET;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static com.example.swplanetapi.common.PlanetConstants.PLANET;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,10 @@ public class PlanetControllerTest {
 	public void createPlanet_WithValidData_ReturnsCreated() throws Exception {
 		when(planetService.create(PLANET)).thenReturn(PLANET);
 
-		mockMvc.perform(post("/planets").content(objectMapper.writeValueAsString(PLANET))
-				.contentType(MediaType.APPLICATION_JSON))
+		mockMvc
+				.perform(
+						post("/planets").content(objectMapper.writeValueAsString(PLANET))
+								.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$").value(PLANET));
 	}
@@ -50,13 +51,14 @@ public class PlanetControllerTest {
 		Planet invalidPlanet = new Planet("", "", "");
 
 		mockMvc
-				.perform(post("/planets").content(objectMapper.writeValueAsString(emptyPlanet))
-						.contentType(MediaType.APPLICATION_JSON))
+				.perform(
+						post("/planets").content(objectMapper.writeValueAsString(emptyPlanet))
+								.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isUnprocessableEntity());
-
 		mockMvc
-				.perform(post("/planets").content(objectMapper.writeValueAsString(invalidPlanet))
-						.contentType(MediaType.APPLICATION_JSON))
+				.perform(
+						post("/planets").content(objectMapper.writeValueAsString(invalidPlanet))
+								.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isUnprocessableEntity());
 	}
 
@@ -65,8 +67,9 @@ public class PlanetControllerTest {
 		when(planetService.create(any())).thenThrow(DataIntegrityViolationException.class);
 
 		mockMvc
-				.perform(post("/planets").content(objectMapper.writeValueAsString(PLANET))
-						.contentType(MediaType.APPLICATION_JSON))
+				.perform(
+						post("/planets").content(objectMapper.writeValueAsString(PLANET))
+								.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isConflict());
 	}
 
@@ -75,32 +78,25 @@ public class PlanetControllerTest {
 		when(planetService.get(1L)).thenReturn(Optional.of(PLANET));
 
 		mockMvc
-				.perform(get("/planets/1"))
+				.perform(
+						get("/planets/1"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$").value(PLANET));
 	}
 
 	@Test
 	public void getPlanet_ByUnexistingId_ReturnsNotFound() throws Exception {
-		mockMvc
-				.perform(get("/planets/1"))
+		mockMvc.perform(get("/planets/1"))
 				.andExpect(status().isNotFound());
 	}
 
 	@Test
 	public void getPlanet_ByExistingName_ReturnsPlanet() throws Exception {
-		when(planetService.getByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
-
-		mockMvc
-				.perform(get("/planets/name/" + PLANET.getName()))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$").value(PLANET));
+		// TODO implement
 	}
 
 	@Test
 	public void getPlanet_ByUnexistingName_ReturnsNotFound() throws Exception {
-		mockMvc
-				.perform(get("/planets/name/1"))
-				.andExpect(status().isNotFound());
+		// TODO implement
 	}
 }

@@ -13,17 +13,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+      HttpStatusCode status, WebRequest request) {
+    return super.handleMethodArgumentNotValid(ex, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
+  }
 
-        return super.handleMethodArgumentNotValid(ex, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    private ResponseEntity<Object> handleConflict(DataIntegrityViolationException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(ex.getMessage());
-    }
-
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  private ResponseEntity<Object> handleConflict(DataIntegrityViolationException ex) {
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(ex.getMessage());
+  }
 }
