@@ -3,8 +3,8 @@ package com.example.swplanetapi.web;
 import static com.example.swplanetapi.common.PlanetConstants.PLANET;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -92,11 +92,18 @@ public class PlanetControllerTest {
 
   @Test
   public void getPlanet_ByExistingName_ReturnsPlanet() throws Exception {
-    // TODO implement
+    when(planetService.getByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
+
+    mockMvc
+        .perform(
+            get("/planets/name/" + PLANET.getName()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value(PLANET));
   }
 
   @Test
   public void getPlanet_ByUnexistingName_ReturnsNotFound() throws Exception {
-    // TODO implement
+    mockMvc.perform(get("/planets/name/1"))
+        .andExpect(status().isNotFound());
   }
 }
