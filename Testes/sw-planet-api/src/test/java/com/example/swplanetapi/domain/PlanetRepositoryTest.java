@@ -1,9 +1,11 @@
 package com.example.swplanetapi.domain;
 
 import static com.example.swplanetapi.common.PlanetConstants.PLANET;
+import static com.example.swplanetapi.common.PlanetConstants.TATOOINE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Example;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 public class PlanetRepositoryTest {
@@ -89,13 +93,29 @@ public class PlanetRepositoryTest {
     assertThat(planetOpt).isEmpty();
   }
 
+  @Sql(scripts = "/import_planets.sql")
   @Test
   public void listPlanets_ReturnsFilteredPlanets() {
-    // TODO implement
+    Example<Planet> queryWithoutFilters = QueryBuilder.makeQuery(new Planet());
+    Example<Planet> queryWithFilters = QueryBuilder.makeQuery(new Planet(TATOOINE.getClimate(), TATOOINE.getTerrain()));
+
+    List<Planet> responseWithoutFilters = planetRepository.findAll(queryWithoutFilters);
+    List<Planet> responseWithFilters = planetRepository.findAll(queryWithFilters);
+
+    assertThat(responseWithoutFilters).isNotEmpty();
+    assertThat(responseWithoutFilters).hasSize(3);
+    assertThat(responseWithFilters).isNotEmpty();
+    assertThat(responseWithFilters).hasSize(1);
+    assertThat(responseWithoutFilters.get(0)).isEqualTo(TATOOINE);
   }
 
   @Test
   public void listPlanets_ReturnsNoPlanets() {
-    // TODO implement
+    Example<Planet> query = QueryBuilder.makeQuery(new Planet());
+
+    List<Planet> response = planetRepository.findAll(query);
+
+    assertThat(response).isEmpty();
   }
+  
 }
