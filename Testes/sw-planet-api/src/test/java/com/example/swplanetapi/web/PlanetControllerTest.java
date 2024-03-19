@@ -151,6 +151,15 @@ public class PlanetControllerTest {
             get("/planets"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(0)));
+  }
 
+  @Test
+  public void removePlanet_WithExistingId_ReturnsNoContent() throws Exception {
+    //TODO implement
+  }
+
+  @Test
+  public void removePlanet_WithUnexistingId_ReturnsNotFound() throws Exception {
+    //TODO implement
   }
 }

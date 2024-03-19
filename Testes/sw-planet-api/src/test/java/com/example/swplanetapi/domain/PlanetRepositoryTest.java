@@ -117,5 +117,14 @@ public class PlanetRepositoryTest {
 
     assertThat(response).isEmpty();
   }
-  
+
+  @Test
+  public void removePlanet_WithExistingId_RemovesPlanetFromDatabase() {
+    // TODO implement
+  }
+
+  @Test
+  public void removePlanet_WithUnexistingId_ThrowsException() {
+    // TODO implement
+  }
 }
