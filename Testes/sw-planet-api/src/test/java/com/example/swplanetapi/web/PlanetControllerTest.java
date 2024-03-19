@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.swplanetapi.domain.Planet;
 import com.example.swplanetapi.domain.PlanetService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+// import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 @WebMvcTest(PlanetController.class)
 public class PlanetControllerTest {
