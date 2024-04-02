@@ -1,6 +1,7 @@
 package com.example.swplanetapi.web;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -23,5 +24,11 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
   private ResponseEntity<Object> handleConflict(DataIntegrityViolationException ex) {
     return ResponseEntity.status(HttpStatus.CONFLICT)
         .body(ex.getMessage());
+  }
+  
+  @ExceptionHandler(EmptyResultDataAccessException.class)
+  private ResponseEntity<Object> handleBadRequest(EmptyResultDataAccessException exception) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body(exception.getMessage());
   }
 }
