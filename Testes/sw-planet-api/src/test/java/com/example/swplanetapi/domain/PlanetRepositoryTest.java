@@ -129,8 +129,8 @@ public class PlanetRepositoryTest {
     assertThat(removedPlanet).isNull();
   }
 
-  //@Test
-  //public void removePlanet_WithUnexistingId_ThrowsException() {
-  //  assertThatThrownBy(() -> planetRepository.deleteById(1L)).isInstanceOf(EmptyResultDataAccessException.class);
-  //}
+  @Test
+  public void removePlanet_WithUnexistingId_ThrowsException() {
+    assertThatThrownBy(() -> planetRepository.deleteById(1L)).isInstanceOf(EmptyResultDataAccessException.class);
+  }
 }
