@@ -15,9 +15,11 @@
   <img src="https://img.shields.io/static/v1?label=Curso na Udemy&message=Testes automatizados com Spring Boot&color=8257E5&labelColor=000000" alt="Testes automatizados na prática com Spring Boot" />
 </p>
 
+
 ## 💻 Projeto
 
 SW-PLANET-API é um serviço web que provê dados sobre a franquia de Star Wars, mais especificamente sobre os planetas que aparecem nos filmes. Esse projeto foi elaborado durante o curso [Testes automatizados na prática com Spring Boot](https://www.udemy.com/course/testes-automatizados-na-pratica-com-spring-boot/?referralCode=7F6C5AA14AE558497FE0), em que o foco foi a criação de testes automatizados.</br>
+
 
 ## 📜 Diagrama
 ![img.png](img.png)
@@ -37,7 +39,6 @@ Para avaliar isso, podemos usar o teste mutante. Com ele podemos realizar uma ex
 ## ✅ Construir
 
 O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
-
 ```sh
 $ sudo mysql
 
@@ -54,36 +55,16 @@ exit
 ```
 Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
 
-
-Para construir e testar, execute o comando:
-
-```sh
-$ ./mvnw clean verify
-```
 
 ## ✅ Executar
 
-O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
-
-```sh
-$ sudo mysql
-
-CREATE USER 'user'@'%' IDENTIFIED BY '123456';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
-
-exit
-
-$ mysql -u user -p
-
-CREATE DATABASE starwars;
-
-exit
-```
-Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
-
-
-Para construir e testar, execute o comando:
-
+1 - Para construir e testar, execute o comando:
 ```sh
 $ ./mvnw clean verify
 ```
+
+2 - Para executar o Teste Mutante, foi necessário executar o comando abaixo:
+```
+C:\Star-Wars-Planets-API\Testes\sw-planet-api> ./mvnw test-compile org.pitest:pitest-maven:mutationCoverage
+```
+
