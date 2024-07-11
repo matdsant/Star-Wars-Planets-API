@@ -6,7 +6,7 @@
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-diagrama">Diagrama</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tipos-de-testes">Tipos de Testes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-config">Config</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-configs">Configs</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-construir-e-executar">Construir e Executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>
 </p>
@@ -43,7 +43,7 @@ essa mutação, ou seja, se quando eu mudo o código, o teste quebra e se ele re
 que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
 
 
-## 🛠️ Config
+## 🛠️ Configs
 
 O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
 
@@ -74,7 +74,7 @@ $ ./mvnw clean verify
 ```
 
 
-## ✨ Technologies
+## ✨ Technologias
 
 - [Mysql](https://dev.mysql.com/downloads/mysql/)
 - [Java](https://www.oracle.com/java/technologies/downloads/)
