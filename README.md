@@ -36,7 +36,7 @@ Para avaliar isso, podemos usar o teste mutante. Com ele podemos realizar uma ex
 É um teste mais lento e não deve rodar junto ao teste de integração, pois o teste mutante usa a dependência do Pitest, que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
 
 
-## ✅ Construir
+## 🛠️ Construir
 
 O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
 ```sh
