@@ -34,7 +34,7 @@ Para avaliar isso, podemos usar o teste mutante. Com ele podemos realizar uma ex
 
 É um teste mais lento e não deve rodar junto ao teste de integração, pois o teste mutante usa a dependência do Pitest, que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
 
-## 🛠️ Configs
+## Configs
 
 O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
 
@@ -65,7 +65,7 @@ $ ./mvnw clean verify
 ```
 
 
-## ✨ Technologias
+## Technologias
 
 - [Mysql](https://dev.mysql.com/downloads/mysql/)
 - [Java](https://www.oracle.com/java/technologies/downloads/)
