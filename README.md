@@ -11,7 +11,9 @@
 </p>
 
 <p align="center">
-  <img alt="Licence" src="https://img.shields.io/static/v1?label=Licence&message=MIT&color=8257E5&labelColor=000000">
+  <a href="https://opensource.org/licenses/MIT">
+    <img alt="Licence" src="https://img.shields.io/static/v1?label=License&message=MIT&color=8257E5&labelColor=000000">
+  </a>
   <a href="https://www.udemy.com/course/testes-automatizados-na-pratica-com-spring-boot/?referralCode=7F6C5AA14AE558497FE0">
     <img src="https://img.shields.io/static/v1?label=Curso na Udemy&message=Testes Automatizados com Spring Boot&color=8257E5&labelColor=000000" alt="Testes automatizados na prática com Spring Boot" />
   </a>
