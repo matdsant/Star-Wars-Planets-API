@@ -6,7 +6,8 @@
   <a href="#-Projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Diagrama">Diagrama</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Tipos-de-Testes">Tipos de Testes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-Construir-e-Executar">Construir e Executar</a>
+  <a href="#-Construir">Construir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Executar">Executar</a>
 </p>
 
 <p align="center">
@@ -33,7 +34,34 @@ Para avaliar isso, podemos usar o teste mutante. Com ele podemos realizar uma ex
 É um teste mais lento e não deve rodar junto ao teste de integração, pois o teste mutante usa a dependência do Pitest, que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
 
 
-## 🚀 Construir e Executar
+## 🚀 Construir
+
+O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
+
+```sh
+$ sudo mysql
+
+CREATE USER 'user'@'%' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+
+exit
+
+$ mysql -u user -p
+
+CREATE DATABASE starwars;
+
+exit
+```
+Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
+
+
+Para construir e testar, execute o comando:
+
+```sh
+$ ./mvnw clean verify
+```
+
+## 🚀 Executar
 
 O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
 
