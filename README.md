@@ -56,7 +56,7 @@ exit
 Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
 
 
-## ✅ Executar
+## 🚀 Executar
 
 1 - Para construir e testar, execute o comando:
 ```sh
