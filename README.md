@@ -32,27 +32,6 @@ Para avaliar isso, podemos usar o teste mutante. Com ele podemos realizar uma ex
 
 É um teste mais lento e não deve rodar junto ao teste de integração, pois o teste mutante usa a dependência do Pitest, que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
 
-## Configs
-
-O projeto requer um banco de dados MySQL, então é necessário criar uma base de dados com os seguintes comandos:
-
-```sh
-$ sudo mysql
-
-CREATE USER 'user'@'%' IDENTIFIED BY '123456';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
-
-exit
-
-$ mysql -u user -p
-
-CREATE DATABASE starwars;
-
-exit
-```
-
-Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
-
 
 ## 🚀 Construir e Executar
 
