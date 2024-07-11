@@ -4,6 +4,7 @@
 
 <p align="center">
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-diagrama">Diagrama</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tipos-de-testes">Tipos de Testes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-configuração">Configuração</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-construir-e-executar">Construir e Executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -15,14 +16,17 @@
   <img src="https://img.shields.io/static/v1?label=Curso na Udemy&message=Testes automatizados com Spring Boot&color=8257E5&labelColor=000000" alt="Testes automatizados na prática com Spring Boot" />
 </p>
 
+
 ## 💻 Projeto
 
 SW-PLANET-API é um serviço web que provê dados sobre a franquia de Star Wars, mais especificamente sobre os planetas que 
 aparecem nos filmes. Esse projeto foi elaborado durante o curso [Testes automatizados na prática com Spring Boot](https://www.udemy.com/course/testes-automatizados-na-pratica-com-spring-boot/?referralCode=7F6C5AA14AE558497FE0), 
 em que o foco foi a criação de testes automatizados.
 
+
 ## 📜 Diagrama
 ![img.png](img.png)
+
 
 ## 🧪 Tipos de Testes
 
@@ -37,6 +41,7 @@ essa mutação, ou seja, se quando eu mudo o código, o teste quebra e se ele re
 
 É um teste mais lento e não deve rodar junto ao teste de integração, pois o teste mutante usa a dependência do Pitest, 
 que deve ser configurado no pom.xml especificando versão, apontando os parâmetros e classes.
+
 
 ## 🛠️ Configuração
 
@@ -59,6 +64,7 @@ exit
 
 Durante os testes, as tabelas de banco já serão criadas automaticamente no banco de dados.
 
+
 ## 🚀 Construir e Executar
 
 Para construir e testar, execute o comando:
@@ -66,6 +72,7 @@ Para construir e testar, execute o comando:
 ```sh
 $ ./mvnw clean verify
 ```
+
 
 ## ✨ Technologies
 
