@@ -211,9 +211,7 @@ A classe `QueryBuilder` pode ser testada utilizando:
 
 ## Classes *`PROJETO`*
 
-### 5 - 
-
-## 📜 Diagrama
+### 5 -📜 Diagrama
 ![img.png](img.png)
 
 ## 🧪 Tipos de Testes
